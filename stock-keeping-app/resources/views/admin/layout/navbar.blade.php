@@ -14,13 +14,13 @@
                             <a class="nav-link active" aria-current="page" href="/">Home</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="{{ route('product.index') }}">Product Master</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="{{ route('purchase.order') }}">Purchase Orders</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="./transaction.html">Transaction</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="./product-master.html">Product Master</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
