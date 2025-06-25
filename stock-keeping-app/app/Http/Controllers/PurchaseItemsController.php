@@ -33,7 +33,11 @@ class PurchaseItemsController extends Controller
         // Calculate subtotal
         $subtotal = $unitPrice * $validated['qty'];
 
-        // Create the purchase order item
+        // ✅ Update product stock (add the new quantity to existing stock)
+        $product->stock_quantity += $validated['qty'];
+        $product->save();
+
+        // ✅ Create the purchase item
         PurchaseItem::create([
             'purchase_order_id' => $validated['purchase_order_id'],
             'product_id' => $validated['product_id'],
