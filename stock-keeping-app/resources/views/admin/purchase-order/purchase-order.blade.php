@@ -4,7 +4,7 @@
     <br>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-8">
                 @if (session('success'))
                     <div class="alert alert-success">
                         {{ session('success') }}
@@ -25,7 +25,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-8">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Purchase Orders</h5>
@@ -33,12 +33,13 @@
                         <form action="{{ route('purchase.order.store') }}" method="POST">
                             @csrf
 
-                            <div class="row">
+                            <div class="row mt-3">
                                 {{-- Date --}}
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="mb-3">
                                         <label for="date" class="form-label">Date *</label>
-                                        <input type="date" class="form-control @error('date') is-invalid @enderror"
+                                        <input type="date"
+                                            class="form-control form-control-sm @error('date') is-invalid @enderror"
                                             name="date" value="{{ old('date') }}">
                                         @error('date')
                                             <div class="invalid-feedback">{{ $message }}</div>
@@ -47,10 +48,11 @@
                                 </div>
 
                                 {{-- Order No --}}
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="mb-3">
                                         <label for="order_no" class="form-label">Order No *</label>
-                                        <input type="text" class="form-control @error('order_no') is-invalid @enderror"
+                                        <input type="text"
+                                            class="form-control form-control-sm @error('order_no') is-invalid @enderror"
                                             name="order_no" placeholder="Enter order number" value="{{ old('order_no') }}">
                                         @error('order_no')
                                             <div class="invalid-feedback">{{ $message }}</div>
@@ -59,37 +61,18 @@
                                 </div>
 
                                 {{-- Supplier --}}
-                                <div class="col-md-4">
+                                <div class="col-md-6">
+                                    {{-- Notes --}}
                                     <div class="mb-3">
-                                        <label for="supplier" class="form-label">Select Supplier</label>
-                                        <select class="form-select @error('supplier') is-invalid @enderror" name="supplier">
-                                            <option value="">-- Select Supplier --</option>
-                                            <option value="1" {{ old('supplier') == 1 ? 'selected' : '' }}>Purchase
-                                            </option>
-                                            <option value="2" {{ old('supplier') == 2 ? 'selected' : '' }}>Sales
-                                            </option>
-                                            <option value="3" {{ old('supplier') == 3 ? 'selected' : '' }}>Purchase
-                                                Return</option>
-                                            <option value="4" {{ old('supplier') == 4 ? 'selected' : '' }}>Sale Return
-                                            </option>
-                                            <option value="5" {{ old('supplier') == 5 ? 'selected' : '' }}>Adjust
-                                            </option>
-                                        </select>
-                                        @error('supplier')
+                                        <label for="notes" class="form-label">Notes</label>
+                                        <input type="text"
+                                            class="form-control form-control-sm @error('notes') is-invalid @enderror"
+                                            name="notes" placeholder="Optional notes" value="{{ old('notes') }}">
+                                        @error('notes')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
-                            </div>
-
-                            {{-- Notes --}}
-                            <div class="mb-3">
-                                <label for="notes" class="form-label">Notes</label>
-                                <input type="text" class="form-control @error('notes') is-invalid @enderror"
-                                    name="notes" placeholder="Optional notes" value="{{ old('notes') }}">
-                                @error('notes')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
                             </div>
 
                             <hr>

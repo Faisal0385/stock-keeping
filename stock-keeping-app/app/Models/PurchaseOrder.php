@@ -16,4 +16,9 @@ class PurchaseOrder extends Model
         'total_amount',
         'notes',
     ];
+
+    public function purchaseItems()
+    {
+        return $this->hasMany(PurchaseItem::class);
+    }
 }

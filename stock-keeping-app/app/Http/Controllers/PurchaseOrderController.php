@@ -9,7 +9,7 @@ class PurchaseOrderController extends Controller
 {
     public function index()
     {
-        $purchaseOrders = PurchaseOrder::get();
+        $purchaseOrders = PurchaseOrder::latest()->get();
         return view('admin.purchase-order.purchase-order', compact('purchaseOrders'));
     }
 

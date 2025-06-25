@@ -17,4 +17,14 @@ class PurchaseItem extends Model
         'received_quantity',
         'subtotal',
     ];
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
+
+    public function purchaseOrder()
+    {
+        return $this->belongsTo(PurchaseOrder::class);
+    }
 }
