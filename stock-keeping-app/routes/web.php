@@ -4,6 +4,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PurchaseItemsController;
 use App\Http\Controllers\PurchaseOrderController;
+use App\Http\Controllers\PurchaseReturnController;
 use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 
@@ -51,3 +52,5 @@ Route::get('/purchase/item/{pid}', [PurchaseItemsController::class, 'index'])->n
 Route::post('/purchase/item/store', [PurchaseItemsController::class, 'store'])->name('purchase.item.store');
 
 
+Route::get('/purchase-returns/create', [PurchaseReturnController::class, 'create'])->name('purchase.returns.create');
+Route::post('/purchase-returns', [PurchaseReturnController::class, 'store'])->name('purchase.returns.store');

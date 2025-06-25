@@ -1,7 +1,8 @@
 @extends('admin.master_admin')
 
 @section('content')
-    <div class="container-fluid mt-3">
+    <br>
+    <div class="container-fluid">
         <div class="row">
             <div class="col-lg-8">
                 @if (session('success'))
@@ -27,76 +28,60 @@
             <div class="col-lg-8">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Add Purchase Items</h5>
+                        <h5 class="card-title">Purchase Return</h5>
                         <h6 class="card-subtitle mb-2 text-body-secondary">Add/Update</h6>
-                        <form action="{{ route('purchase.item.store') }}" method="POST">
+                        <form action="{{ route('purchase.order.store') }}" method="POST">
                             @csrf
 
-                            <div class="row">
-                                <div class="col-lg-4">
-                                    {{-- Date --}}
+                            <div class="row mt-3">
+                                {{-- Date --}}
+                                {{-- <div class="col-md-3">
                                     <div class="mb-3">
                                         <label for="date" class="form-label">Date *</label>
-                                        <input type="date" name="date" id="date"
+                                        <input type="date"
                                             class="form-control form-control-sm @error('date') is-invalid @enderror"
-                                            value="{{ old('date') }}" required>
+                                            name="date" value="{{ old('date') }}">
                                         @error('date')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
+                                </div> --}}
 
-                                    {{-- Purchase Order ID --}}
+                                {{-- Order No --}}
+                                <div class="col-md-3">
                                     <div class="mb-3">
-                                        <input type="hidden" name="purchase_order_id" value="{{ $id }}">
-                                        @error('purchase_order_id')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-
-                                </div>
-                                <div class="col-lg-4">
-                                    {{-- Product Select --}}
-                                    <div class="mb-3">
-                                        <label for="product_id" class="form-label">Select Product *</label>
-                                        <select name="product_id" id="product_id"
-                                            class="form-select form-select-sm @error('product_id') is-invalid @enderror"
-                                            aria-label="Select Product" required>
-                                            <option value="" disabled selected>Select Product</option>
-                                            @foreach ($products as $product)
-                                                <option value="{{ $product->id }}">
-                                                    {{ $product->name }}
-                                                </option>
+                                        <label for="purchase_return_id" class="form-label">Purchase Order ID</label>
+                                        <select class="form-select form-select-sm" id="purchase_return_id"
+                                            name="purchase_return_id" required>
+                                            <option value="">Select Purchase Order ID</option>
+                                            @foreach ($purchaseOrders as $order)
+                                                <option value="{{ $order->id }}">#PO-{{ $order->order_no }}</option>
                                             @endforeach
                                         </select>
-                                        @error('product_id')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
                                     </div>
                                 </div>
-                                <div class="col-lg-4">
-                                    {{-- Quantity --}}
+                                {{-- Notes --}}
+                                {{-- <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label for="qty" class="form-label">Quantity *</label>
-                                        <input type="number" name="qty" id="qty"
-                                            class="form-control form-control-sm @error('qty') is-invalid @enderror"
-                                            placeholder="Enter Quantity" value="{{ old('qty') }}" min="1"
-                                            required>
-                                        @error('qty')
+                                        <label for="notes" class="form-label">Notes</label>
+                                        <input type="text"
+                                            class="form-control form-control-sm @error('notes') is-invalid @enderror"
+                                            name="notes" placeholder="Optional notes" value="{{ old('notes') }}">
+                                        @error('notes')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
 
                             <hr>
                             <button type="submit" class="btn btn-primary btn-sm">Save</button>
                         </form>
-
                     </div>
                 </div>
             </div>
         </div>
-        <br>
+
         <hr>
         <div class="container-fluid">
             <div class="row">
@@ -121,16 +106,18 @@
                                 </thead>
                                 <tbody>
 
-                                    @foreach ($purchaseItems as $key => $purchaseItem)
-                                        <tr>
-                                            <th scope="row">{{ $key + 1 }}</th>
-                                            <td>{{ $purchaseItem->purchaseOrder?->order_no }}</td>
-                                            <td>{{ $purchaseItem->product?->name }}</td>
-                                            <td>{{ $purchaseItem->quantity }}</td>
-                                            <td>{{ $purchaseItem->unit_price }}</td>
-                                            <td>{{ $purchaseItem->subtotal }}</td>
-                                        </tr>
-                                    @endforeach
+                                    @if (!empty($purchaseItems))
+                                        @foreach ($purchaseItems as $key => $purchaseItem)
+                                            <tr>
+                                                <th scope="row">{{ $key + 1 }}</th>
+                                                <td>{{ $purchaseItem->purchaseOrder?->order_no }}</td>
+                                                <td>{{ $purchaseItem->product?->name }}</td>
+                                                <td>{{ $purchaseItem->quantity }}</td>
+                                                <td>{{ $purchaseItem->unit_price }}</td>
+                                                <td>{{ $purchaseItem->subtotal }}</td>
+                                            </tr>
+                                        @endforeach
+                                    @endif
 
                                 </tbody>
                             </table>

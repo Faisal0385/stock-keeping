@@ -16,11 +16,29 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('product.index') }}">Product Master</a>
                         </li>
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a class="nav-link" href="{{ route('purchase.order') }}">Purchase Orders</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="{{ route('purchase.returns.create') }}">Product Return</a>
+                        </li> --}}
+                        {{-- <li class="nav-item">
                             <a class="nav-link" href="./transaction.html">Transaction</a>
+                        </li> --}}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                Purchase
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('purchase.order') }}">Purchase Orders</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('purchase.returns.create') }}">Product
+                                        Return</a>
+                                </li>
+                            </ul>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
