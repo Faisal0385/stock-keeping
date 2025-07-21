@@ -10,53 +10,9 @@
 </head>
 
 <body>
-    <div class="container-fluid">
-        <div class="row">
-            <nav class="navbar navbar-expand-lg bg-body-tertiary">
-                <div class="container-fluid">
-                    <a class="navbar-brand" href="#">Halda</a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                            <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="./index.html">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="./transaction.html">Transaction</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="./product-master.html">Product Master</a>
-                            </li>
+    {{-- navbar --}}
+    @include('admin.components.navbar')
 
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                                    aria-expanded="false">
-                                    Others
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">Category</a></li>
-                                    <li><a class="dropdown-item" href="#">Sub Category</a></li>
-                                    <li><a class="dropdown-item" href="#">Unit</a></li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                        <form class="d-flex" role="search">
-                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                            <button class="btn btn-outline-success" type="submit">Search</button>
-                        </form>
-                    </div>
-                </div>
-            </nav>
-        </div>
-    </div>
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-12 p-2">
@@ -69,85 +25,81 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-12">
-                <div class="card">
+                <div class="card shadow-sm rounded-4 border-0">
                     <div class="card-body">
-                        <h5 class="card-title">Sale/Purchase Transactions</h5>
-                        <h6 class="card-subtitle mb-2 text-body-secondary">Add/Update</h6>
-                        <p class="card-text">
-
-                        <div class="mb-3">
-                            <label for="exampleFormControlInput1" class="form-label">Date</label>
-                            <input type="date" class="form-control" id="exampleFormControlInput1">
+                        <!-- Header with background color -->
+                        <div class="bg-primary text-white p-4 rounded-top">
+                            <h5 class="card-title fw-semibold mb-1">Sale / Purchase Transactions</h5>
+                            <h6 class="card-subtitle mb-0 opacity-75">Add or Update Transactions</h6>
                         </div>
 
-                        <div class="mb-3">
-                            <label for="exampleFormControlInput1" class="form-label">Purchase Order ID</label>
-                            <input type="text" class="form-control" id="exampleFormControlInput1"
-                                placeholder="Purchase Order ID">
-                        </div>
+                        @if (session('success'))
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                {{ session('success') }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            </div>
+                        @endif
 
-                        <div class="mb-3">
-                            <label for="exampleFormControlInput1" class="form-label">Select Product
-                                *</label>
-                            <select class="form-select form-select-sm" aria-label="Small select example">
-                                <option selected>Select Product</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
-                            </select>
-                        </div>
+                        @if (session('error'))
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                {{ session('error') }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            </div>
+                        @endif
 
-                        <!-- <div class="row">
-                            <div class="col">
-                                <div class="mb-3">
-                                    <label for="exampleFormControlInput1" class="form-label">Purchase Price
-                                        *</label>
-                                    <input type="number" class="form-control" id="exampleFormControlInput1"
-                                        placeholder="22.00" disabled>
-                                </div>
+                        @if ($errors->any())
+                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                <ul class="mb-0">
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
                             </div>
-                            <div class="col">
-                                <div class="mb-3">
-                                    <label for="exampleFormControlInput1" class="form-label">Selling Price *</label>
-                                    <input type="text" class="form-control" id="exampleFormControlInput1"
-                                        placeholder="50" disabled>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="mb-3">
-                                    <label for="exampleFormControlInput1" class="form-label">Discount Price</label>
-                                    <input type="number" class="form-control" id="exampleFormControlInput1"
-                                        placeholder="0" disabled>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="mb-3">
-                                    <label for="exampleFormControlInput1" class="form-label">Current QTY
-                                        (PCS)</label>
-                                    <input type="number" class="form-control" id="exampleFormControlInput1"
-                                        placeholder="2" disabled>
-                                </div>
-                            </div>
-                        </div> -->
+                        @endif
 
-                        <div class="row">
-                            <div class="col">
-                                <div class="mb-3">
-                                    <label for="exampleFormControlInput1" class="form-label">QTY (PCS)*</label>
-                                    <input type="number" class="form-control" id="exampleFormControlInput1"
-                                        placeholder="QTY (PCS)*">
+                        <form action="{{ route('purchase.items.store') }}" method="POST" class="pt-5">
+                            @csrf
+                            <div class="row">
+                                <div class="col-lg-3 mb-4">
+                                    <label for="date" class="form-label">Date <span
+                                            class="text-danger">*</span></label>
+                                    <input type="hidden" name="purchase_order_id" value="{{ $id }}">
+                                    <input type="date" class="form-control" name="date" required>
                                 </div>
-                            </div>
-                        </div>
 
-                        </p>
-                        <hr>
-                        <a href="#" class="btn btn-sm btn-primary">Save</a>
-                        <a href="./payment.html" class="btn btn-sm btn-success">Payment</a>
+                                <div class="col-lg-3 mb-4">
+                                    <label for="product_id" class="form-label">Select Product <span
+                                            class="text-danger">*</span></label>
+                                    <select class="form-select" name="product_id" required>
+                                        <option selected disabled>Select Product</option>
+                                        @foreach ($products as $product)
+                                            <option value="{{ $product->id }}">{{ $product->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="mb-4 col-lg-3 px-0">
+                                    <label for="received_qty" class="form-label">Quantity (PCS) <span
+                                            class="text-danger">*</span></label>
+                                    <input type="number" min="1" class="form-control" name="received_qty"
+                                        placeholder="Enter quantity" required>
+                                </div>
+
+                            </div>
+                            <div class="d-flex gap-2 mt-4">
+                                <button type="submit" class="btn btn-primary btn-sm px-4">Save</button>
+                                <a href="./payment.html" class="btn btn-success btn-sm px-4">Payment</a>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
+
         <br>
         <hr>
         <div class="container-fluid">
@@ -217,8 +169,8 @@
         <br>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
-        crossorigin="anonymous"></script>
+        integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous">
+    </script>
 </body>
 
 </html>

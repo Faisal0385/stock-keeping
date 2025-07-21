@@ -135,7 +135,7 @@
                                                 <td>{{ $order->supplier?->name }}</td>
                                                 <td>{{ $order->notes }}</td>
                                                 <td>
-                                                    <a href="{{ route('purchase-items.show', $order->id) }}"
+                                                    <a href="{{ route('purchase.items', $order->id) }}"
                                                         class="btn btn-sm btn-outline-primary">
                                                         Add Items
                                                     </a>

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Backend\ProductMasterController;
+use App\Http\Controllers\Backend\PurchaseItemController;
 use App\Http\Controllers\Backend\PurchaseOrderController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -48,10 +49,6 @@ Route::get('/purchase-orders', [PurchaseOrderController::class, 'index'])->middl
 Route::post('/purchase-orders-store', [PurchaseOrderController::class, 'store'])->middleware(['auth', 'verified'])->name('purchase.store');
 
 
-Route::get('/purchase-items', function () {
-    return view('admin.purchase-items');
-})->middleware(['auth', 'verified'])->name('purchase.items');
-
-Route::get('/purchase-items-show', function () {
-    return view('admin.purchase-items');
-})->middleware(['auth', 'verified'])->name('purchase-items.show');
+// purchase-items
+Route::get('/purchase-items/{id}', [PurchaseItemController::class, 'index'])->middleware(['auth', 'verified'])->name('purchase.items');
+Route::post('/purchase-items-store', [PurchaseItemController::class, 'store'])->middleware(['auth', 'verified'])->name('purchase.items.store');
