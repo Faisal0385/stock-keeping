@@ -10,53 +10,9 @@
 </head>
 
 <body>
-    <div class="container-fluid">
-        <div class="row">
-            <nav class="navbar navbar-expand-lg bg-body-tertiary">
-                <div class="container-fluid">
-                    <a class="navbar-brand" href="#">Halda</a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                            <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="./index.html">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="./transaction.html">Transaction</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="./product-master.html">Product Master</a>
-                            </li>
+    {{-- navbar --}}
+    @include('admin.components.navbar')
 
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                                    aria-expanded="false">
-                                    Others
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">Category</a></li>
-                                    <li><a class="dropdown-item" href="#">Sub Category</a></li>
-                                    <li><a class="dropdown-item" href="#">Unit</a></li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                        <form class="d-flex" role="search">
-                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                            <button class="btn btn-outline-success" type="submit">Search</button>
-                        </form>
-                    </div>
-                </div>
-            </nav>
-        </div>
-    </div>
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-12 p-2">
@@ -67,51 +23,80 @@
         </div>
     </div>
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Purchase Orders</h5>
-                        <h6 class="card-subtitle mb-2 text-body-secondary">Add/Update</h6>
-                        <p class="card-text">
-                        <div class="row">
-                            <div class="col">
-                                <div class="mb-3">
-                                    <label for="exampleFormControlInput1" class="form-label">Date</label>
-                                    <input type="date" class="form-control" id="exampleFormControlInput1">
+        <div class="container-fluid py-4">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="card shadow-lg border-0 rounded-4">
+                        <div class="card-body p-4">
+                            <div class="mb-4">
+                                <h4 class="fw-bold mb-1">Purchase Order</h4>
+                                <p class="text-muted mb-0">Fill in the form below to add or update a purchase order.</p>
+                            </div>
+
+
+
+                            @if (session('success'))
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    {{ session('success') }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                        aria-label="Close"></button>
+                                </div>
+                            @endif
+
+                            @if (session('error'))
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    {{ session('error') }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                        aria-label="Close"></button>
+                                </div>
+                            @endif
+
+                            @if ($errors->any())
+                                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                    <ul class="mb-0">
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                        aria-label="Close"></button>
+                                </div>
+                            @endif
+
+                            <form action="{{ route('purchase.store') }}" method="POST">
+                                @csrf
+                                <div class="row g-4">
+                                    <div class="col-md-6">
+                                        <label for="orderDate" class="form-label">Date <span
+                                                class="text-danger">*</span></label>
+                                        <input type="date" class="form-control" id="orderDate" name="date"
+                                            required>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label for="supplier" class="form-label">Supplier <span
+                                                class="text-danger">*</span></label>
+                                        <select class="form-select" id="supplier" name="supplier_id">
+                                            <option value="">-- Select Supplier --</option>
+                                            @foreach ($suppliers as $supplier)
+                                                <option value="{{ $supplier->id }}">{{ $supplier->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                 </div>
 
-                            </div>
-                            <div class="col">
-                                <div class="mb-3">
-                                    <label for="exampleFormControlInput1" class="form-label">Order No</label>
-                                    <input type="text" class="form-control" id="exampleFormControlInput1"
-                                        placeholder="Order No">
+                                <div class="row mt-4">
+                                    <div class="col-md-12">
+                                        <label for="notes" class="form-label">Notes</label>
+                                        <textarea class="form-control" id="notes" name="notes" rows="3" placeholder="Enter any additional notes..."></textarea>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col">
-                                <div class="mb-3">
-                                    <label for="exampleFormControlInput1" class="form-label">Select Supplier
-                                        *</label>
-                                    <select class="form-select form-select-sm" aria-label="Small select example">
-                                        <option selected>Select Supplier</option>
-                                        <option value="1">Purchase</option>
-                                        <option value="2">Sales</option>
-                                        <option value="3">Purchase Return</option>
-                                        <option value="3">Sale Return</option>
-                                        <option value="3">Adjust</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="exampleFormControlInput1" class="form-label">Notes</label>
-                            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Notes">
-                        </div>
 
-                        </p>
-                        <hr>
-                        <a href="#" class="btn btn-sm btn-primary">Save</a>
+                                <div class="mt-4 text-end">
+                                    <button type="submit" class="btn btn-primary px-4 py-2">Save Order</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -119,79 +104,58 @@
 
         <br>
         <hr>
-        <div class="container-fluid">
+        <div class="container-fluid py-4">
             <div class="row">
-                <div class="col-lg-12">
-                    <h5 class="card-title mb-3">Purchase Orders Table</h5>
+                <div class="col-lg-12 mb-3">
+                    <h4 class="fw-semibold">📦 Purchase Orders Overview</h4>
+                    <p class="text-muted mb-0">Manage and review all your purchase orders in one place.</p>
                 </div>
+
                 <div class="col-lg-12">
-                    <div class="card">
-                        <div class=" card-body">
-                            <p class="card-text">
-                                <hr>
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Date</th>
-                                        <th scope="col">Invoice</th>
-                                        <th scope="col">Product Name</th>
-                                        <th scope="col">Type</th>
-                                        <th scope="col">Quantity</th>
-                                        <th scope="col">Price</th>
-                                        <th scope="col">Amount</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
-                                        <th scope="row">1</th>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
-                                        <td>
-                                            <a href="./purchase-items.html" class="btn btn-sm btn-primary">Add Items</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
-                                        <th scope="row">1</th>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
-                                        <td>
-                                            <a href="./purchase-items.html" class="btn btn-sm btn-primary">Add Items</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td>John</td>
-                                        <td>Doe</td>
-                                        <td>@social</td>
-                                        <th scope="row">1</th>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
-                                        <td>
-                                            <a href="./purchase-items.html" class="btn btn-sm btn-primary">Add Items</a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            </p>
+                    <div class="card border-0 shadow-sm rounded-4">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover align-middle">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Date</th>
+                                            <th>Order No</th>
+                                            <th>Supplier</th>
+                                            <th>Note</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($orders as $index => $order)
+                                            <tr>
+                                                <td>{{ $index + 1 }}</td>
+                                                <td>{{ \Carbon\Carbon::parse($order->date)->format('Y-m-d') }}</td>
+                                                <td>{{ $order->order_no }}</td>
+                                                <td>{{ $order->supplier?->name }}</td>
+                                                <td>{{ $order->notes }}</td>
+                                                <td>
+                                                    <a href="{{ route('purchase-items.show', $order->id) }}"
+                                                        class="btn btn-sm btn-outline-primary">
+                                                        Add Items
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
         <br>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
-        crossorigin="anonymous"></script>
+        integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous">
+    </script>
 </body>
 
 </html>

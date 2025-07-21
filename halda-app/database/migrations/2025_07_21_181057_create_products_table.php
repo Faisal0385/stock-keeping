@@ -21,6 +21,7 @@ return new class extends Migration {
 
             $table->decimal('purchase_price', 10, 2);
             $table->decimal('selling_price', 10, 2);
+            $table->integer('stock')->default(0);
             $table->integer('reorder_stock')->default(0);
 
             $table->boolean('status')->default(true); // Optional: active/inactive
