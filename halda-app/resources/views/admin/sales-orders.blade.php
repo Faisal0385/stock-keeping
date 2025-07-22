@@ -29,11 +29,9 @@
                     <div class="card shadow-lg border-0 rounded-4">
                         <div class="card-body p-4">
                             <div class="mb-4">
-                                <h4 class="fw-bold mb-1">Purchase Order</h4>
-                                <p class="text-muted mb-0">Fill in the form below to add or update a purchase order.</p>
+                                <h4 class="fw-bold mb-1">Sales Order</h4>
+                                <p class="text-muted mb-0">Fill in the form below to add or update a sales order.</p>
                             </div>
-
-
 
                             @if (session('success'))
                                 <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -63,26 +61,26 @@
                                 </div>
                             @endif
 
-                            <form action="{{ route('purchase.store') }}" method="POST">
+                            <form action="{{ route('sales.store') }}" method="POST">
                                 @csrf
                                 <div class="row g-4">
                                     <div class="col-md-6">
-                                        <label for="orderDate" class="form-label">Date <span
+                                        <label for="sale_date" class="form-label">Date <span
                                                 class="text-danger">*</span></label>
-                                        <input type="date" class="form-control" id="orderDate" name="date"
+                                        <input type="date" class="form-control" id="sale_date" name="sale_date"
                                             required>
                                     </div>
 
-                                    <div class="col-md-6">
-                                        <label for="supplier" class="form-label">Supplier <span
+                                    {{-- <div class="col-md-6">
+                                        <label for="customer" class="form-label">Customer <span
                                                 class="text-danger">*</span></label>
-                                        <select class="form-select" id="supplier" name="supplier_id">
-                                            <option value="">-- Select Supplier --</option>
-                                            @foreach ($suppliers as $supplier)
-                                                <option value="{{ $supplier->id }}">{{ $supplier->name }}</option>
+                                        <select class="form-select" id="customer" name="customer_id">
+                                            <option value="">-- Select Customer --</option>
+                                            @foreach ($customers as $customer)
+                                                <option value="{{ $customer->id }}">{{ $customer->name }}</option>
                                             @endforeach
                                         </select>
-                                    </div>
+                                    </div> --}}
                                 </div>
 
                                 <div class="row mt-4">
@@ -107,8 +105,8 @@
         <div class="container-fluid py-4">
             <div class="row">
                 <div class="col-lg-12 mb-3">
-                    <h4 class="fw-semibold">📦 Purchase Orders Overview</h4>
-                    <p class="text-muted mb-0">Manage and review all your purchase orders in one place.</p>
+                    <h4 class="fw-semibold">📦 Sale Orders Overview</h4>
+                    <p class="text-muted mb-0">Manage and review all your sale orders in one place.</p>
                 </div>
 
                 <div class="col-lg-12">
@@ -121,7 +119,7 @@
                                             <th>#</th>
                                             <th>Date</th>
                                             <th>Order No</th>
-                                            <th>Supplier</th>
+                                            <th>Customer</th>
                                             <th>Amount</th>
                                             <th>Note</th>
                                             <th>Action</th>
@@ -132,12 +130,12 @@
                                             <tr>
                                                 <td>{{ $index + 1 }}</td>
                                                 <td>{{ \Carbon\Carbon::parse($order->date)->format('Y-m-d') }}</td>
-                                                <td>{{ $order->order_no }}</td>
-                                                <td>{{ $order->supplier?->name ?? 'No Data' }}</td>
+                                                <td>{{ $order->sale_code }}</td>
+                                                <td>{{ $order->customer?->name ?? 'No Data' }}</td>
                                                 <td>{{ $order->order_amount ?? 0 }}</td>
                                                 <td>{{ $order->notes ?? 'N/A' }}</td>
                                                 <td>
-                                                    <a href="{{ route('purchase.items', $order->id) }}"
+                                                    <a href="{{ route('sales.items', $order->id) }}"
                                                         class="btn btn-sm btn-outline-primary">
                                                         Add Items
                                                     </a>

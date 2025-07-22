@@ -173,6 +173,7 @@
                                         <th scope="col">Subcategory</th>
                                         <th scope="col">Purchase Price</th>
                                         <th scope="col">Selling Price</th>
+                                        <th scope="col">Stock</th>
                                         <th scope="col">Reorder</th>
                                         <th scope="col">Action</th>
                                     </tr>
@@ -188,6 +189,7 @@
                                             <td>{{ $product->subCategory->name ?? 'N/A' }}</td>
                                             <td>{{ number_format($product->purchase_price, 2) }}</td>
                                             <td>{{ number_format($product->selling_price, 2) }}</td>
+                                            <td>{{ $product->stock }}</td>
                                             <td>{{ $product->reorder_stock }}</td>
                                             <td>
                                                 @if ($product->status)
@@ -205,11 +207,6 @@
                                 {{ $products->links() }}
                             </div>
                         </div>
-
-                        {{-- <div class="text-end mt-3">
-                            <button class="btn btn-sm btn-outline-primary">Export CSV</button>
-                            <button class="btn btn-sm btn-outline-secondary">Print</button>
-                        </div> --}}
                     </div>
                 </div>
             </div>

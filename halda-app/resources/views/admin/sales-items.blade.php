@@ -29,7 +29,7 @@
                     <div class="card-body">
                         <!-- Header with background color -->
                         <div class="bg-primary text-white p-4 rounded-top">
-                            <h5 class="card-title fw-semibold mb-1">Sale / Purchase Transactions</h5>
+                            <h5 class="card-title fw-semibold mb-1">Sale Transactions</h5>
                             <h6 class="card-subtitle mb-0 opacity-75">Add Transactions</h6>
                         </div>
 
@@ -61,14 +61,14 @@
                             </div>
                         @endif
 
-                        <form action="{{ route('purchase.items.store') }}" method="POST" class="pt-5">
+                        <form action="{{ route('sales.items.store') }}" method="POST" class="pt-5">
                             @csrf
                             <div class="row">
                                 <div class="col-lg-3 mb-4">
-                                    <label for="date" class="form-label">Date <span
+                                    <label for="sale_date" class="form-label">Date <span
                                             class="text-danger">*</span></label>
-                                    <input type="hidden" name="purchase_order_id" value="{{ $id }}">
-                                    <input type="date" class="form-control" name="date" required>
+                                    <input type="hidden" name="sale_id" value="{{ $id }}">
+                                    <input type="date" class="form-control" name="sale_date" required>
                                 </div>
 
                                 <div class="col-lg-3 mb-4">
@@ -83,9 +83,9 @@
                                 </div>
 
                                 <div class="mb-4 col-lg-3 px-0">
-                                    <label for="received_qty" class="form-label">Quantity (PCS) <span
+                                    <label for="qty_sold" class="form-label">Quantity (PCS) <span
                                             class="text-danger">*</span></label>
-                                    <input type="number" min="1" class="form-control" name="received_qty"
+                                    <input type="number" min="1" class="form-control" name="qty_sold"
                                         placeholder="Enter quantity" required>
                                 </div>
 
@@ -118,8 +118,7 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">#</th>
-                                        <th scope="col">Date</th>
-                                        <th scope="col">PO</th>
+                                        <th scope="col">Invoice</th>
                                         <th scope="col">Product Name</th>
                                         <th scope="col">Quantity</th>
                                         <th scope="col">Price</th>
@@ -129,21 +128,19 @@
                                 </thead>
                                 <tbody>
 
-                                    @foreach ($purchaseOrderItems as $key => $purchaseOrderItem)
+                                    @foreach ($saleItems as $key => $saleItem)
                                         <tr>
                                             <th scope="row">{{ $key + 1 }}</th> {{-- Row Number --}}
-                                            <td>{{ $purchaseOrderItem->date }}</td> {{-- Date --}}
-
-                                            <td>{{ $purchaseOrderItem->purchaseOrder?->order_no }}</td>
-                                            <td>{{ $purchaseOrderItem->product->name ?? 'N/A' }}</td>
+                                            <td>{{ $saleItem->saleOrder?->sale_code }}</td>
+                                            <td>{{ $saleItem->product->name ?? 'N/A' }}</td>
                                             {{-- Product Name --}}
-                                            <td>{{ $purchaseOrderItem->received_qty }}</td> {{-- Received Quantity --}}
-                                            <td>{{ number_format($purchaseOrderItem->unit_price, 2) }}</td>
+                                            <td>{{ $saleItem->qty_sold }}</td> {{-- Received Quantity --}}
+                                            <td>{{ number_format($saleItem->unit_price, 2) }}</td>
                                             {{-- Unit Price --}}
-                                            <td>{{ number_format($purchaseOrderItem->subtotal, 2) }}</td>
+                                            <td>{{ number_format($saleItem->subtotal, 2) }}</td>
                                             {{-- Subtotal --}}
                                             <td>
-                                                <form action="{{ route('purchase-items.destroy', $purchaseOrderItem->id) }}"
+                                                <form action="{{ route('purchase-items.destroy', $saleItem->id) }}"
                                                     method="POST" onsubmit="return confirm('Are you sure?');">
                                                     @csrf
                                                     @method('DELETE')

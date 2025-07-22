@@ -12,9 +12,10 @@ return new class extends Migration {
     {
         Schema::create('purchase_orders', function (Blueprint $table) {
             $table->id();
-            $table->string('order_no')->unique();
             $table->date('date');
+            $table->string('order_no')->unique();
             $table->unsignedBigInteger('supplier_id')->nullable();
+            $table->decimal('order_amount', 12, 2)->default(0);
             $table->text('notes')->nullable();
             $table->timestamps();
 

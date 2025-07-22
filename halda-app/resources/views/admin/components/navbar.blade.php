@@ -13,14 +13,45 @@
                             <li class="nav-item">
                                 <a class="nav-link active" aria-current="page" href="{{ route('dashboard') }}">Home</a>
                             </li>
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a class="nav-link" href="{{ route('product.master') }}">Product Master</a>
+                            </li> --}}
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    Product Master
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="{{ route('product.master') }}">Product Add</a>
+                                    </li>
+                                    <li><a class="dropdown-item" href="#">Product Stock</a></li>
+                                </ul>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('purchase.orders') }}">purchase-orders</a>
-                            </li>
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a class="nav-link" href="./transaction.html">Transaction</a>
+                            </li> --}}
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    Purchase Orders
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="{{ route('purchase.orders') }}">Purchase
+                                            Orders</a></li>
+                                    <li><a class="dropdown-item" href="#">Purchase Adjust</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    Sales
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="{{ route('sales.orders') }}">Sales</a></li>
+                                    <li><a class="dropdown-item" href="#">Sales Adjust</a></li>
+                                </ul>
                             </li>
 
                             <li class="nav-item dropdown">
@@ -35,7 +66,6 @@
                                     <li>
                                         <hr class="dropdown-divider">
                                     </li>
-                                    <li><a class="dropdown-item" href="./adjust.html">Adjust</a></li>
                                     <li><a class="dropdown-item" href="#">Reports</a></li>
                                 </ul>
                             </li>
